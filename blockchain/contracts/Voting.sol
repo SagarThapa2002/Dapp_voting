@@ -25,7 +25,15 @@ contract Voting {
         candidates[candidateIndex].voteCount++;
     }
 
-    function getCandidates() public view returns (Candidate[] memory) {
-        return candidates;
+    //  New: return number of candidates
+    function getTotalCandidates() public view returns (uint) {
+        return candidates.length;
+    }
+
+    //  New: return a candidate by index
+    function getCandidate(uint index) public view returns (string memory name, uint voteCount) {
+        require(index < candidates.length, "Candidate does not exist.");
+        Candidate memory candidate = candidates[index];
+        return (candidate.name, candidate.voteCount);
     }
 }
